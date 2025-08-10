@@ -19,9 +19,9 @@ try {
         return;
     }
     await blogRepository.delete(id);
-    res.sendStatus(204);
+    res.sendStatus(HttpStatus.NoContent);
     } catch (e: unknown) {
-        res.sendStatus(500)
+        res.sendStatus(HttpStatus.InternalServerError)
     }
 }
 

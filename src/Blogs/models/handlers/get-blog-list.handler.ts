@@ -1,6 +1,16 @@
 import { Request, Response} from "express";
-import { db } from "../../../db/memory.db";
+import {blogRepository} from "../../repository/BlogRepository";
 
-export function getBlogListHandler(req: Request, res: Response) {
-    res.send(db.Blog);
+import {HttpStatus} from "../../../core/types/http-statuses";
+import {mapToBlogListViewModelUtil} from "../routers/mappers/map-to-blog-list-view-model.util";
+
+
+export async function getBlogListHandler(req: Request, res: Response) {
+    try {
+        const blogs = await blogRepository.findAll();
+        const blogViewModels = mapToBlogListViewModelUtil(blogs);
+        res.send(blogViewModels);
+    } catch (e:unknown) {
+        res.sendStatus(HttpStatus.InternalServerError);
+    }
 }

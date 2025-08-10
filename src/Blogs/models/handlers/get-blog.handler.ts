@@ -1,18 +1,24 @@
 import { Request, Response} from "express";
-import { db } from "../../../db/memory.db";
+import {HttpStatus} from "../../../core/types/http-statuses";
 import { createErrorsMessages } from "../../dto/FieldError";
+import { mapToBlogViewModel} from "../routers/mappers/map-to-blog-view-model.util";
+import {blogRepository} from "../../repository/BlogRepository";
 
-export function getBlogHandler (req: Request, res: Response) {
-
-        const id: string  = req.params.id;
-        const blog = db.Blog.find((d) => d.id === id);
+export async function getBlogHandler (req: Request, res: Response) {
+    try{
+        const id = req.params.id;
+        const blog = await blogRepository.findById(id);
         if (!blog) {
             res
-                .status(404)
+                .status(HttpStatus.NotFound)
                 .send(
                     createErrorsMessages([{field: 'id', message: 'Blog not found'}]),
                 );
             return;
         }
-        res.status(200).send(blog);
+        const blogViewModel = mapToBlogViewModel(blog);
+        res.status(HttpStatus.Ok).send(blogViewModel);
+    } catch (e: unknown) {
+    res.sendStatus(HttpStatus.InternalServerError);
     }
+}

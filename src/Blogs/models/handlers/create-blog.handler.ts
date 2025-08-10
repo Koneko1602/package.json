@@ -21,7 +21,9 @@ export  async function createBlogHandler(
         };
         const createdBlog = await blogRepository.create(newBlog);
         const blogViewModel = mapToBlogViewModel(createdBlog);
-        res.status(HttpStatus.Created).
+        res.status(HttpStatus.Created).send(blogViewModel);
     }
-    catch ()
+    catch (e: unknown) {
+        res.sendStatus(HttpStatus.InternalServerError);
+    }
 }

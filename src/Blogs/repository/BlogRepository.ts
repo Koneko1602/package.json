@@ -1,6 +1,7 @@
 import {BlogInputModel, Blog} from "../models/BlogModel"
 import {ObjectId, WithId} from "mongodb";
 import {BlogsCollection} from "../../db/Mongo.db";
+import {BlogAttributes} from "../dto/blog-attributes";
 
 export const blogRepository = {
      async findAll():  Promise<WithId<Blog>[]>{
@@ -11,13 +12,13 @@ export const blogRepository = {
      },
 
         // Создать новый блог
-    async create(newBlog: BlogInputModel): Promise<WithId<Blog>> {
+    async create(newBlog: Blog): Promise<WithId<Blog>> {
          const insertResult= await BlogsCollection.insertOne(newBlog);
          return { ...newBlog, _id: insertResult.insertedId};
         },
 
         // Обновить данные блога
-        async update(id: string, dto: Blog): Promise<void> {
+        async update(id: string, dto: BlogAttributes): Promise<void> {
             const updateResult = await BlogsCollection.updateOne(
                 {
                     _id: new ObjectId(id),
