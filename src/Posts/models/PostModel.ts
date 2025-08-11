@@ -7,8 +7,8 @@ export type PostInputModel = {
 }
 
 // Модель для отображения поста (ответ от API)
-export type PostViewModel = {
-        id: string;
+export type Post = {
+       // id: string;
         title: string;
         shortDescription: string;
         content: string;

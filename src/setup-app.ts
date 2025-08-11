@@ -1,7 +1,7 @@
 import express, {Express, Request, Response} from "express";
 import {BlogRouter} from "./Blogs/models/routers/blog.router";
 import {BLOGS_PATH, POSTS_PATH, TESTS_PATH} from "./core/paths/paths";
-import {PostRouter} from "./Posts/models/postRoters/post.router.rs";
+import {PostRouter} from "./Posts/models/routers/post.router.rs";
 import {TestRouter} from "./tests/routers/Test.router";
 
 export const setupApp = (app: Express) => {

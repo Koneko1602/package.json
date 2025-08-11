@@ -5,10 +5,10 @@ export type BlogOutput = {
         type: ResourceType.Blogs;
         id: string;
         attributes: {
-            name: string;
-            description: string;
+            name: string;         // макс. 15 символов
+            description: string;  // макс. 500 символов
             websiteUrl: string;
-            createdAt: Date;
+            createdAt : Date;
         };
 
 

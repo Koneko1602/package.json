@@ -1,5 +1,5 @@
 import {BlogInputModel, Blog} from "../Blogs/models/BlogModel";
-import {PostViewModel} from "../Posts/models/PostModel";
+import {Post} from "../Posts/models/PostModel";
 export const db = {
     Blog: <Blog[]>[
         {
@@ -18,7 +18,7 @@ export const db = {
 
     ],
 
-    Post: <PostViewModel[]>[
+    Post: <Post[]>[
 
 
 
