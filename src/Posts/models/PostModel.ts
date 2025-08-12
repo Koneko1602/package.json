@@ -12,7 +12,8 @@ export type Post = {
         title: string;
         shortDescription: string;
         content: string;
-        blogId: string;
+        blogId: string; //Это называется денормализация
+        // ты сохраняешь часть данных из связанной сущности, чтобы не делать лишний запрос при отображении.
         blogName: string;
 }
 

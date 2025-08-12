@@ -1,4 +1,4 @@
-import {BlogInputModel, Blog} from "../models/BlogModel"
+import {Blog} from "../models/BlogModel"
 import {ObjectId, WithId} from "mongodb";
 import {BlogsCollection} from "../../db/Mongo.db";
 import {BlogAttributes} from "../dto/blog-attributes";

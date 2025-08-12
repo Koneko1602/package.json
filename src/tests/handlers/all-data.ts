@@ -1,10 +1,11 @@
-import {db} from "../../db/memory.db";
+
 import { Request, Response} from "express";
+import {BlogsCollection,PostsCollection } from "../../db/Mongo.db";
 
-export function deleteAllDataHandler(req: Request, res: Response) {
+export async function deleteAllDataHandler(req: Request, res: Response) {
 
 
-    db.Blog.length = 0;
-    db.Post.length = 0;
+    await BlogsCollection.deleteMany({});
+    await PostsCollection.deleteMany({});
     res.sendStatus(204);
 }

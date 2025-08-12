@@ -37,3 +37,4 @@ export const ValidationInputPost = (
 
     return errors;
 }
+// Спросить про валидацию для постов по блог нейм и блог айди
