@@ -1,20 +1,35 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createBlogHandler = createBlogHandler;
-const FieldError_1 = require("../../dto/FieldError");
-const memory_db_1 = require("../../../db/memory.db");
-const ValidationInputModel_1 = require("../../validation/ValidationInputModel");
+const BlogRepository_1 = require("../../repository/BlogRepository");
+const map_to_blog_view_model_util_1 = require("../routers/mappers/map-to-blog-view-model.util");
+const http_statuses_1 = require("../../../core/types/http-statuses");
 function createBlogHandler(req, res) {
-    const errors = (0, ValidationInputModel_1.ValidationInputModel)(req.body);
-    if (errors.length > 0) {
-        res.status(400).send((0, FieldError_1.createErrorsMessages)(errors));
-        return;
-    }
-    const newBlog = {
-        id: memory_db_1.db.Blog.length ? (Number(memory_db_1.db.Blog[memory_db_1.db.Blog.length - 1].id) + 1).toString() : '1',
-        name: req.body.name,
-        description: req.body.description,
-        websiteUrl: req.body.websiteUrl,
-    };
-    res.status(201).send(newBlog);
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const attributes = req.body.data.attributes;
+            const newBlog = {
+                name: attributes.name,
+                description: attributes.description,
+                websiteUrl: attributes.websiteUrl,
+                createdAt: new Date(),
+                isMembership: false,
+            };
+            const createdBlog = yield BlogRepository_1.blogRepository.create(newBlog);
+            const blogViewModel = (0, map_to_blog_view_model_util_1.mapToBlogViewModel)(createdBlog);
+            res.status(http_statuses_1.HttpStatus.Created).send(blogViewModel);
+        }
+        catch (e) {
+            res.sendStatus(http_statuses_1.HttpStatus.InternalServerError);
+        }
+    });
 }

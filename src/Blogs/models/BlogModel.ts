@@ -17,6 +17,7 @@ export type  Blog =  {
         description: string;
         websiteUrl: string;
         createdAt: Date;
+        isMembership: false;
 }
 
 

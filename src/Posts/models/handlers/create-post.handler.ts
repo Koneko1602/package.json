@@ -24,6 +24,7 @@ export  async function createPostHandler(
             content: attributes.content,
             blogId: blog._id.toString(),
             blogName: blog.name,
+            isMembership: false,
         };
         const createdPost = await postRepository.create(newPost);
         const postViewModel = mapToPostViewModel(createdPost);

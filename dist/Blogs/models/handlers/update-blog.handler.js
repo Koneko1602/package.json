@@ -1,26 +1,34 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateBlogHandler = updateBlogHandler;
 const FieldError_1 = require("../../dto/FieldError");
-const memory_db_1 = require("../../../db/memory.db");
-const ValidationInputModel_1 = require("../../validation/ValidationInputModel");
+const BlogRepository_1 = require("../../repository/BlogRepository");
+const http_statuses_1 = require("../../../core/types/http-statuses");
 function updateBlogHandler(req, res) {
-    const id = req.params.id;
-    const index = memory_db_1.db.Blog.findIndex((v) => v.id === id);
-    if (index === -1) {
-        res
-            .status(404)
-            .send((0, FieldError_1.createErrorsMessages)([{ field: 'id', message: 'Blog not found' }]));
-        return;
-    }
-    const errors = (0, ValidationInputModel_1.ValidationInputModel)(req.body);
-    if (errors.length > 0) {
-        res.status(400).send((0, FieldError_1.createErrorsMessages)(errors));
-        return;
-    }
-    const blog = memory_db_1.db.Blog[index];
-    blog.name = req.body.name;
-    blog.description = req.body.description;
-    blog.websiteUrl = req.body.websiteUrl;
-    res.sendStatus(204); // нет контента, успешно
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const id = req.params.id;
+            const blog = BlogRepository_1.blogRepository.findById(id);
+            if (!blog) {
+                res
+                    .status(http_statuses_1.HttpStatus.NotFound)
+                    .send((0, FieldError_1.createErrorsMessages)([{ field: 'id', message: 'Blog not found ' }]));
+                return;
+            }
+            yield BlogRepository_1.blogRepository.update(id, req.body.data.attributes);
+            res.sendStatus(http_statuses_1.HttpStatus.NoContent);
+        }
+        catch (e) {
+            res.sendStatus(http_statuses_1.HttpStatus.InternalServerError);
+        }
+    });
 }

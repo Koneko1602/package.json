@@ -7,7 +7,7 @@ exports.setupApp = void 0;
 const express_1 = __importDefault(require("express"));
 const blog_router_1 = require("./Blogs/models/routers/blog.router");
 const paths_1 = require("./core/paths/paths");
-const post_router_rs_1 = require("./Posts/models/postRoters/post.router.rs");
+const post_router_rs_1 = require("./Posts/models/routers/post.router.rs");
 const Test_router_1 = require("./tests/routers/Test.router");
 const setupApp = (app) => {
     app.use(express_1.default.json()); // middleware для парсинга JSON в теле запроса
