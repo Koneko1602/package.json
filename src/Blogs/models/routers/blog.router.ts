@@ -8,6 +8,7 @@ import {updateBlogHandler} from "../handlers/update-blog.handler";
 import {deleteBlogHandler} from "../handlers/delete-blog.handler";
 import {superAdminGuardMiddleware} from "../../../Authorization/super-admin.guard-middleware";
 import {Router} from "express";
+import {BlogInputDtoValidation} from "../../validation/blog.input-dto.validation-middlewares";
 
 
 export const BlogRouter = Router ({});
@@ -26,9 +27,9 @@ BlogRouter
     .post(
         '',
         superAdminGuardMiddleware,
+        BlogInputDtoValidation,
         inputValidationResultMiddleware,
         createBlogHandler,
-
 
 
     )
@@ -36,6 +37,7 @@ BlogRouter
     .put(
         '/:id',
         superAdminGuardMiddleware,
+        BlogInputDtoValidation,
         idValidation,
         inputValidationResultMiddleware,
         updateBlogHandler,
@@ -44,6 +46,7 @@ BlogRouter
 
     .delete('/:id',
         superAdminGuardMiddleware,
+
         idValidation,
         inputValidationResultMiddleware,
         deleteBlogHandler,

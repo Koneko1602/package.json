@@ -11,12 +11,13 @@ import { blogRepository } from "../../../Blogs/repository/BlogRepository";
 export  async function createPostHandler(
     req: Request<{},{},PostInput>,
     res: Response,
-) {
+)  {
     try {
         const attributes = req.body.data.attributes;
         const blog= await blogRepository.findById(attributes.blogId);
         if (!blog) {
-            return res.status(HttpStatus.NotFound).send({ error: 'Blog not found' });
+             res.status(HttpStatus.NotFound).send({ error: 'Blog not found' });
+             return;
         }
         const newPost: Post = {
             title: attributes.title,

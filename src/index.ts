@@ -8,7 +8,7 @@ import {runDB} from "./db/Mongo.db";
 // const app = setupApp(express());
 //
 // // порт приложения
-// const PORT = process.env.PORT || 5002;
+ //const PORT = process.env.PORT || 5002;
 //
 // // запуск приложения
 // app.listen(PORT, () => {

@@ -4,4 +4,4 @@ import {deleteAllDataHandler} from "../handlers/all-data";
 export const TestRouter = Router ({});
 
 TestRouter
-    .delete ('', deleteAllDataHandler )
+    .delete ('/testing/all-data', deleteAllDataHandler )

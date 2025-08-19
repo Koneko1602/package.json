@@ -8,6 +8,7 @@ import {createPostHandler} from "../handlers/create-post.handler";
 import {updatePostHandler} from "../handlers/update-post.handler";
 import {deletePostHandler} from "../handlers/delete-post.handler";
 
+
 export const PostRouter = Router ({});
 
 PostRouter

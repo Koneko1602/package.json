@@ -14,7 +14,7 @@ const description = body('description')
     .isLength({ min: 0, max: 500 })
     .withMessage('Length of description is not correct');
 
-const websiteUrl = body('URL')
+const websiteUrl = body('websiteUrl')
     .isString()
     .withMessage('URL should be string')
     .trim()
