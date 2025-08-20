@@ -3,10 +3,11 @@ import {HttpStatus} from "../../../core/types/http-statuses";
 import {PostUpdateInput} from "../../dto/post-update.input";
 import {postRepository} from "../../repository/PostRepository";
 import {createErrorsMessages} from "../../../Blogs/dto/FieldError";
+import {PostInputModel} from "../PostModel";
 
 
 export async function updatePostHandler (
-    req: Request <{id: string}, {}, PostUpdateInput>,
+    req: Request <{id: string}, {}, PostInputModel>,
     res: Response,
 ){
     try {
@@ -23,7 +24,7 @@ export async function updatePostHandler (
                 );
             return;
         }
-        await postRepository.update(id, req.body.data.attributes)
+        await postRepository.update(id, req.body)
         res.sendStatus(HttpStatus.NoContent);
     } catch (e: unknown) {
         res.sendStatus(HttpStatus.InternalServerError);

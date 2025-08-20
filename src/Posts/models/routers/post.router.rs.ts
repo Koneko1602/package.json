@@ -7,6 +7,7 @@ import {superAdminGuardMiddleware} from "../../../Authorization/super-admin.guar
 import {createPostHandler} from "../handlers/create-post.handler";
 import {updatePostHandler} from "../handlers/update-post.handler";
 import {deletePostHandler} from "../handlers/delete-post.handler";
+import {PostInputDtoValidation} from "../../validation/post.input-dto.validation-middlewares";
 
 
 export const PostRouter = Router ({});
@@ -25,6 +26,7 @@ PostRouter
     .post(
         '',
         superAdminGuardMiddleware,
+        PostInputDtoValidation,
         inputValidationResultMiddleware,
         createPostHandler,
 
@@ -36,6 +38,7 @@ PostRouter
         '/:id',
         superAdminGuardMiddleware,
         idValidation,
+        PostInputDtoValidation,
         inputValidationResultMiddleware,
         updatePostHandler,
 

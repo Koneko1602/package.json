@@ -1,7 +1,7 @@
 
 import {ObjectId, WithId} from "mongodb";
 import {PostsCollection} from "../../db/Mongo.db";
-import {Post} from "../models/PostModel";
+import {Post, PostInputModel} from "../models/PostModel";
 import {PostAttributes} from "../dto/post-attributes";
 
 
@@ -21,7 +21,7 @@ export const postRepository = {
     },
 
     // Обновить данные блога
-    async update(id: string, dto: PostAttributes): Promise<void> {
+    async update(id: string, body: PostInputModel): Promise<void> {
         const updateResult = await PostsCollection.updateOne(
 
 
@@ -30,11 +30,11 @@ export const postRepository = {
             },
             {
                 $set: {
-                    title: dto.title,             // макс. 30 символов
-                    shortDescription: dto.shortDescription,  // макс. 100 символов
-                    content: dto.content,           // макс. 1000 символов
-                    blogId: dto.blogId,
-                   // blogName:dto.blogName,
+                    title:body.title,             // макс. 30 символов
+                    shortDescription: body.shortDescription,  // макс. 100 символов
+                    content: body.content,           // макс. 1000 символов
+                    blogId: body.blogId,
+                    //blogName:body.blogName,
                 },
             },
         );
