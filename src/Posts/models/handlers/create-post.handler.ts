@@ -1,9 +1,7 @@
 import { Request, Response} from "express";
 import {HttpStatus} from "../../../core/types/http-statuses";
 import {Post, PostInputModel} from "../PostModel";
-import {mapToPostViewModel} from "../routers/mappers/map-to-post-view-model.util";
 import {postRepository} from "../../repository/PostRepository";
-import {PostInput} from "../../dto/post.input";
 import { blogRepository } from "../../../Blogs/repository/BlogRepository";
 
 
