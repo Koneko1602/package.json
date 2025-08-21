@@ -1,8 +1,8 @@
 import { Request, Response} from "express";
 import {HttpStatus} from "../../../core/types/http-statuses";
 import { createErrorsMessages } from "../../dto/FieldError";
-import { mapToBlogViewModel} from "../routers/mappers/map-to-blog-view-model.util";
 import {blogRepository} from "../../repository/BlogRepository";
+import {toBlogDto} from "../../dto/toDTO";
 
 export async function getBlogHandler (req: Request, res: Response) {
     try{
@@ -16,8 +16,8 @@ export async function getBlogHandler (req: Request, res: Response) {
                 );
             return;
         }
-        const blogViewModel = mapToBlogViewModel(blog);
-        res.status(HttpStatus.Ok).send(blogViewModel);
+
+        res.status(HttpStatus.Ok).send(toBlogDto(blog));
     } catch (e: unknown) {
     res.sendStatus(HttpStatus.InternalServerError);
     }
