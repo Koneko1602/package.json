@@ -1,14 +1,14 @@
 import { Request, Response} from "express";
 import {postRepository} from "../../repository/PostRepository";
-import {mapToPostListViewModelUtil} from "../routers/mappers/map-to-post-list-view-model.util";
 import {HttpStatus} from "../../../core/types/http-statuses";
+import {MapToPostDto} from "../routers/mappers/mapToPostDto";
 
 
 export async function getPostListHandler(req: Request, res: Response) {
     try {
         const posts = await postRepository.findAll();
-        const postViewModels = mapToPostListViewModelUtil(posts);
-        res.send(postViewModels);
+        const postDTOs =posts.map(MapToPostDto);
+        res.status(HttpStatus.Ok).send(postDTOs);
     } catch (e:unknown) {
         res.sendStatus(HttpStatus.InternalServerError);
     }

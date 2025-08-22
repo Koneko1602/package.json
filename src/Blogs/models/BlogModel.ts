@@ -12,7 +12,6 @@ export type BlogInputModel = {
 
 // Модель для вывода (ответ от сервера)
 export type  Blog =  {
-        //id: string;
         name: string;
         description: string;
         websiteUrl: string;

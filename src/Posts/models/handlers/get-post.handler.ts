@@ -1,8 +1,8 @@
 import { Request, Response} from "express";
 import {HttpStatus} from "../../../core/types/http-statuses";
 import {postRepository} from "../../repository/PostRepository";
-import {mapToPostViewModel} from "../routers/mappers/map-to-post-view-model.util";
 import {createErrorsMessages} from "../../../Blogs/dto/FieldError";
+import {MapToPostDto} from "../routers/mappers/mapToPostDto";
 
 export async function getPostHandler (req: Request, res: Response) {
     try{
@@ -16,8 +16,8 @@ export async function getPostHandler (req: Request, res: Response) {
                 );
             return;
         }
-        const postViewModel = mapToPostViewModel(post);
-        res.status(HttpStatus.Ok).send(postViewModel);
+
+        res.status(HttpStatus.Ok).send(MapToPostDto(post));
     } catch (e: unknown) {
         res.sendStatus(HttpStatus.InternalServerError);
     }

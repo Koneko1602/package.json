@@ -8,13 +8,13 @@ export type PostInputModel = {
 
 // Модель для отображения поста (ответ от API)
 export type Post = {
-       // id: string;
         title: string;
         shortDescription: string;
         content: string;
-        blogId: string; //Это называется денормализация
+        blogId: string;
         // ты сохраняешь часть данных из связанной сущности, чтобы не делать лишний запрос при отображении.
-        blogName: string;
+        blogName: string;//Это называется денормализация
+        createdAt : Date;
         isMembership: false;
 }
 

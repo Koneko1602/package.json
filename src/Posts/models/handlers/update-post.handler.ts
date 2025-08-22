@@ -1,6 +1,5 @@
 import { Request, Response} from "express";
 import {HttpStatus} from "../../../core/types/http-statuses";
-import {PostUpdateInput} from "../../dto/post-update.input";
 import {postRepository} from "../../repository/PostRepository";
 import {createErrorsMessages} from "../../../Blogs/dto/FieldError";
 import {PostInputModel} from "../PostModel";
@@ -13,7 +12,7 @@ export async function updatePostHandler (
     try {
 
         const id: string = req.params.id;
-        const post = postRepository.findById(id);
+        const post =  await postRepository.findById(id);
 
 
         if (!post) {

@@ -2,7 +2,7 @@
 import {ObjectId, WithId} from "mongodb";
 import {PostsCollection} from "../../db/Mongo.db";
 import {Post, PostInputModel} from "../models/PostModel";
-import {PostAttributes} from "../dto/post-attributes";
+
 
 
 
