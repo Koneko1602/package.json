@@ -2,6 +2,7 @@ import { Request, Response} from "express";
 import {Blog, BlogInputModel} from "../BlogModel";
 import {blogRepository} from "../../repository/BlogRepository";
 import {HttpStatus} from "../../../core/types/http-statuses";
+import {mapToBlogDto} from "../routers/mappers/Map-to-blog-dto";
 
 
 
@@ -21,7 +22,7 @@ export  async function createBlogHandler(
         };
         const createdBlog = await blogRepository.create(newBlog);
 
-        res.status(HttpStatus.Created).send(createdBlog);
+        res.status(HttpStatus.Created).send(mapToBlogDto(createdBlog));
     }
     catch (e: unknown) {
         res.sendStatus(HttpStatus.InternalServerError);

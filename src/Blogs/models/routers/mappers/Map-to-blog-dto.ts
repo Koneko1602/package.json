@@ -1,8 +1,8 @@
 import {WithId} from "mongodb";
-import {Blog} from "../models/BlogModel";
-import {BlogDTO} from "./BlogModelDTO";
+import {Blog} from "../../BlogModel";
+import {BlogDTO} from "../../../dto/BlogModelDTO";
 
-export const toBlogDto = (blog: WithId<Blog>): BlogDTO => ({
+export const mapToBlogDto = (blog: WithId<Blog>): BlogDTO => ({
     id: blog._id.toString(),
     name: blog.name,
     description: blog.description,

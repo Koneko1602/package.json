@@ -1,7 +1,4 @@
 
-
-
-
 export type  BlogDTO =  {
     id: string;
     name: string;

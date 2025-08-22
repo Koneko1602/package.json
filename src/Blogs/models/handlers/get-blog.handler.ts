@@ -2,7 +2,7 @@ import { Request, Response} from "express";
 import {HttpStatus} from "../../../core/types/http-statuses";
 import { createErrorsMessages } from "../../dto/FieldError";
 import {blogRepository} from "../../repository/BlogRepository";
-import {toBlogDto} from "../../dto/toDTO";
+import {mapToBlogDto} from "../routers/mappers/Map-to-blog-dto";
 
 export async function getBlogHandler (req: Request, res: Response) {
     try{
@@ -17,7 +17,7 @@ export async function getBlogHandler (req: Request, res: Response) {
             return;
         }
 
-        res.status(HttpStatus.Ok).send(toBlogDto(blog));
+        res.status(HttpStatus.Ok).send(mapToBlogDto(blog));
     } catch (e: unknown) {
     res.sendStatus(HttpStatus.InternalServerError);
     }

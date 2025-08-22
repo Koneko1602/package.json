@@ -15,7 +15,7 @@ export async function updateBlogHandler (
     try {
 
         const id: string = req.params.id;
-        const blog = blogRepository.findById(id);
+        const blog = await blogRepository.findById(id);
 
 
         if (!blog) {
