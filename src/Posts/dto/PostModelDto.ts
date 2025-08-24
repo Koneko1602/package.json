@@ -7,7 +7,6 @@ export type postModelDto =
     blogId: string;
     blogName: string;
     createdAt: Date;
-    isMembership: false;
 }
 
 

@@ -10,5 +10,5 @@ export const MapToPostDto = (post: WithId<Post>): postModelDto => ({
     blogId: post.blogId,
     blogName: post.blogName,
     createdAt: post.createdAt,
-    isMembership: post.isMembership,
+
 });

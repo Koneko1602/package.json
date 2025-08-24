@@ -25,7 +25,7 @@ export  async function createPostHandler(
             blogId: blog._id.toString(),
             blogName: blog.name,
             createdAt:new Date(),
-            isMembership: false,
+
         };
         const createdPost = await postRepository.create(newPost);
 
