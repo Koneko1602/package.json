@@ -2,13 +2,13 @@ import {BlogDTO} from "../dto/BlogModelDTO";
 import {Blog} from "../models/BlogModel";
 import {WithId} from "mongodb";
 import {blogRepository} from "../repository/BlogRepository";
-import {WithId}
+
 
 export const BlogsService = {
-    async findMany(
+    async findAll(
         queryDto: BlogDTO,
     ): Promise<{ items: WithId<Blog>[]; totalCount: number }> {
-        return blogRepository.findMany(queryDto);
+        return blogRepository.findAll(queryDto);
     },
 
 
@@ -22,8 +22,9 @@ export const BlogsService = {
 
 
         };
+        const createBlog = await blogRepository.create(newBlog);
+        return createBlog._id.toString();
 
-        return blogRepository.create(newBlog);
     },
 
     async update(id: string, dto: BlogDTO): Promise<void> {
@@ -32,16 +33,9 @@ export const BlogsService = {
     },
 
     async delete(id: string): Promise<void> {
-        const activeRide = await ridesRepository.findActiveRideByDriverId(id);
 
-        if (activeRide) {
-            throw new DomainError(
-                `Driver has an active ride. Complete or cancel the ride first`,
-                DriverErrorCode.HasActiveRide,
-            );
-        }
 
-        await driversRepository.delete(id);
+        await blogRepository.delete(id);
         return;
     },
 };
